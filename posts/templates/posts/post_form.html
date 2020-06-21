@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% block title %}
+{{user.username}} Posts
+{% endblock title %}
+{% block form %}
+    <div class="post-form">
+        <header><h3>Whats on your mind? Create a post now...</h3></header>
+            <div class="postform-body">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input type="submit" class="btn" value='Create Post'>
+                </form>
+            </div>
+    </div>
+{% endblock form %}
+
+{% block body %}
+    {% for post in post_list %}
+        <div class="post-box">
+            <header><h4>@ <a href="">{{user.username}}</a><br> {{user.user_profile.full_name}} </h4><br>
+                <p>Posted at {{user.user_profile.created}}</p>
+            </header>
+                <div class="post-body">
+                    <p>{{post.message}}</p>
+                    {% if post.image %}
+                        <img src="{{post.image.url}}" alt="">
+                    {% endif %}
+                
+                    {% if post.num_likes %}<p>{{post.num_likes}} Likes
+                    {% else %} 0 Likes {% endif %}
+                    {% if post.num_comments %}{{post.num_comments}} Comments</p>
+                    {% else %} 0 Comments {% endif %}  
+                
+                </div>
+            <footer><a href="{% url 'posts:like' id=post.id %}" >Like</a> <a href="">Comment</a></footer>
+        </div>
+    {% endfor %}
+{% endblock body %}

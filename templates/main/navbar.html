@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %} </title>
+   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <h4>Friend Zone</h4>
+        </div>
+        <ul class='nav-links'>
+            <li><a href="{% url 'profiles:home'%}"><span><i class="fas fa-home"></i></span> Home</a></li>
+            <li><a href="#"><i class="fas fa-users"></i> Group</a></li>
+            <li><a href="#"><i class="fas fa-user-friends"></i> Friends</a></li>
+            <li class="profile"><img src="{{user.user_profile.avatar.url}}" class="link-img" alt=""> <p> {{user.username}} </p>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'profiles:update' slug=user.user_profile.slug %}">My Profile</a></li>
+                    <li><a href="{% url 'posts:post' slug=user.user_profile.slug %}">My Posts</a></li>
+                    <li><a href="{% url 'profiles:logout' %}">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="burger">
+            <div class="line1"><a href="#"></a></div>
+            <div class="line2"><a href="#"></a></div>
+            <div class="line3"><a href="#"></a></div>
+        </div>
+    </nav>
+
+    <div class="sidebar"><h4>FRIENDS</h4>
+        <ul>
+            {% for person in user.user_profile.friends.all %}
+            <li><a href="{% url 'profiles:profiledetail' slug=person.user_profile.slug %}"><img src="{{person.user_profile.avatar.url}}" class="link-img" alt="">{{person}}</a></li>
+            <br>
+            {% endfor %}            
+        
+        </ul>
+    </div>
+    {% block base %}
+    {% endblock base %}
+
+    <script src="{% static 'js/script.js'%}"></script>
+</body>
+</html>

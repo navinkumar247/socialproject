@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+
+{% block body %}
+
+<div class="update-box">
+    <header><h4>{{person.username}}</h4></header>
+    <div class="row">
+        <div class=""><img class="img-thumbnail" src="{{person.user_profile.avatar.url}}" alt="Image not found"></div>
+            <table>
+                <tr>
+                    <td>Username: </td>
+                    <td>{{person.username}}</td>
+                </tr>
+                <tr>
+                  <td>First name:</td>
+                  <td>{{person.user_profile.first_name}}</td>
+                </tr>
+                <tr>
+                  <td>Last name:</td>
+                  <td> {{person.user_profile.last_name}} </td>
+                </tr>
+                <tr>
+                  <td>Date of Birth:</td>
+                  <td> {{person.user_profile.dob}} </td>
+                </tr>
+                <tr>
+                  <td>Country: </td>
+                  <td> {{person.user_profile.country}}</td>
+                </tr>
+                <tr>
+                  <td>Account Created on:</td>
+                  <td> {{person.user_profile.created}} </td>
+                </tr>
+                <tr>
+                  <td>Bio:</td>
+                  <td> {{person.user_profile.bio}} </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
