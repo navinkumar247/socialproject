@@ -4,11 +4,13 @@ from django.views.generic import CreateView, DetailView, ListView, RedirectView
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
+from .forms import PostForm
 # Create your views here.
 
 class PostCreateView(CreateView, LoginRequiredMixin):
     model = Post
-    fields = ('message', 'image')
+    form_class = PostForm
+    template_name = 'posts/post_form.html'
     
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -29,10 +31,13 @@ class LikeView(RedirectView, LoginRequiredMixin):
         if not created:
             if like.value == 'Like':
                 like.value = "Unlike"
+                post.liked.remove(user)
             else:
                 like.value = 'Like'
+                post.liked.add(user)   
         else:
             like.value = 'Like'
+            post.liked.add(user)
         like.save()
         return super().get(request, *args, **kwargs)
 

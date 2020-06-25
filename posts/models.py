@@ -6,10 +6,10 @@ User = get_user_model()
 
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_posts')
-    message = models.CharField(blank=False, max_length=50)
+    message = models.TextField(blank=False, max_length=500)
     image = models.ImageField(upload_to='posts/', blank=True, height_field=None, width_field=None, max_length=None)
-    # liked = models.ManyToManyField(User, related_name='likes', blank = True)
-    # comments = models.ManyToManyField(User, related_name='comments', blank=True)
+    liked = models.ManyToManyField(User, related_name='likes', blank = True)
+    comments = models.ManyToManyField(User, related_name='comments', blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

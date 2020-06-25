@@ -10,4 +10,5 @@ urlpatterns = [
     path('signup/', views.UserCreateView.as_view(), name='signup'),
     path('updateprofile/<slug>/', views.ProfileUpdateView.as_view(), name='update'),
     path('profiledetail/<slug>/', views.ProfileDetailView.as_view(), name='profiledetail'),
+    path('<sender>-<receiver>/friendrequest/', views.FriendRequest.as_view(), name='friendrequest'),
 ]

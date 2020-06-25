@@ -1,43 +1,72 @@
 {% extends 'main/base.html' %}
 
 {% block body %}
+{% if user in profile.friends.all %}
+<a class="btn modal-btn" href="{% url 'profiles:friendrequest' receiver=profile.slug sender=user.user_profile.slug %}">Unfriend</a>
+{% else %}
+<a class="btn modal-btn" href="{% url 'profiles:friendrequest' receiver=profile.slug sender=user.user_profile.slug %}">{{relationship_status}}</a>
+{% endif %}
 
 <div class="update-box">
-    <header><h4>{{person.username}}</h4></header>
+    
+    <header><h4>{{profile.user.username}}</h4></header>
+    
     <div class="row">
-        <div class=""><img class="img-thumbnail" src="{{person.user_profile.avatar.url}}" alt="Image not found"></div>
-            <table>
-                <tr>
-                    <td>Username: </td>
-                    <td>{{person.username}}</td>
-                </tr>
-                <tr>
-                  <td>First name:</td>
-                  <td>{{person.user_profile.first_name}}</td>
-                </tr>
-                <tr>
-                  <td>Last name:</td>
-                  <td> {{person.user_profile.last_name}} </td>
-                </tr>
-                <tr>
-                  <td>Date of Birth:</td>
-                  <td> {{person.user_profile.dob}} </td>
-                </tr>
-                <tr>
-                  <td>Country: </td>
-                  <td> {{person.user_profile.country}}</td>
-                </tr>
-                <tr>
-                  <td>Account Created on:</td>
-                  <td> {{person.user_profile.created}} </td>
-                </tr>
-                <tr>
-                  <td>Bio:</td>
-                  <td> {{person.user_profile.bio}} </td>
-                </tr>
-            </table>
+        <div class=""><img class="img-thumbnail" src="{{profile.avatar.url}}" alt="Image not found"></div>
+          <table>
+              <tr>
+                  <td>Username: </td>
+                  <td>{{profile.user.username}}</td>
+              </tr>
+              <tr>
+                <td>First name:</td>
+                <td>{{profile.first_name}}</td>
+              </tr>
+              <tr>
+                <td>Last name:</td>
+                <td> {{profile.last_name}} </td>
+              </tr>
+              <tr>
+                <td>Date of Birth:</td>
+                <td> {{profile.dob}} </td>
+              </tr>
+              <tr>
+                <td>Country: </td>
+                <td> {{profile.country}}</td>
+              </tr>
+              <tr>
+                <td>Account Created on:</td>
+                <td> {{profile.created}} </td>
+              </tr>
+              <tr>
+                <td>Bio:</td>
+                <td> {{profile.bio}} </td>
+              </tr>
+          </table>
+          
         </div>
     </div>
 </div>
-
+{% for post in profile.user.user_posts.all %}
+  <div class="post-box">
+    <header><h4>@ <a href="">{{post.author.username}}</a><br> {{post.author.user_profile.full_name}} </h4><br>
+        <p>Posted at {{post.author.user_profile.created}}</p>
+    </header>
+        <div class="post-body">
+            <p>{{post.message}}</p>
+            {% if post.image %}
+                <img src="{{post.image.url}}" alt="">
+            {% endif %}
+        
+            <br>
+            <p class="footer-stats">{% if post.num_likes %}{{post.num_likes}} Likes
+            {% else %} 0 Likes {% endif %}
+            {% if post.num_comments %}{{post.num_comments}} Comments
+            {% else %} 0 Comments {% endif %} </p> 
+        
+        </div>
+    <footer><a href="{% url 'posts:like' id=post.id %}" >{% if user in post.liked.all %}Unlike{% else %}Like{% endif %}</a> 
+    <a href="">Comment</a></footer>
+  </div>
+{% endfor %}
 {% endblock body %}

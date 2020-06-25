@@ -10,10 +10,11 @@
                         <img src="{{post.image.url}}" alt="">
                     {% endif %}
                 
-                    {% if post.num_likes %}<p>{{post.num_likes}} Likes
+                    <br>
+                    <p class="footer-stats">{% if post.num_likes %}{{post.num_likes}} Likes
                     {% else %} 0 Likes {% endif %}
-                    {% if post.num_comments %}{{post.num_comments}} Comments</p>
-                    {% else %} 0 Comments {% endif %}  
+                    {% if post.num_comments %}{{post.num_comments}} Comments
+                    {% else %} 0 Comments {% endif %} </p>  
                     
                 </div>
             <footer><a href="">Like</a> <a href="">Comment</a></footer>

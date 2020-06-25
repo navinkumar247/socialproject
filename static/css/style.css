@@ -384,6 +384,7 @@ nav ul li a{
     height: 100%;
     margin: auto;
     padding: 10px;
+    padding-bottom: 0px;
     background-color:  rgb(38, 13, 82);
     display: flex;
     flex-direction: column;
@@ -394,6 +395,11 @@ nav ul li a{
     width: 400px;
     height: auto;
     margin: auto;
+}
+
+.post-box .post-body .footer-stats{
+    font-size: 14px;
+    color: rgb(121, 121, 121);
 }
 @media screen and (max-width: 768px){
     .sidebar{
@@ -497,7 +503,6 @@ nav ul li a{
 }
 
 .update-box img{
-    height: 300px;
     width: 300px;
 }
 
