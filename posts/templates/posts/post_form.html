@@ -34,7 +34,9 @@
                     {% else %} 0 Comments {% endif %} </p>
                 
                 </div>
-            <footer><a href="{% url 'posts:like' id=post.id %}" >Like</a> <a href="">Comment</a></footer>
+            <footer><a href="{% url 'posts:like' id=post.id %}" class="like-btn" id="{{post.id}}">
+            {% if user in post.liked.all %}Unlike{% else %}Like{% endif %}</a> 
+            <a href="">Comment</a></footer>
         </div>
     {% endfor %}
 {% endblock body %}

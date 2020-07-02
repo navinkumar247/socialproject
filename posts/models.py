@@ -14,7 +14,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.message[:20])
+        return str(self.message[:20])+"..."
     
     def num_likes(self):
         like_obj = self.like_set.all()
